@@ -1,14 +1,24 @@
 version: '3'
-
 services:
+  web:
+    image: praqma/network-multitool
+    networks:
+      - frontend
+    command: tail -f /dev/null
+  app:
+    image: praqma/network-multitool
+    networks:
+      - frontend
+      - backend
+    command: tail -f /dev/null
   db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "8080:80"
-    links:
-      - db
+    image: praqma/network-multitool
+    networks:
+      - backend
+    command: tail -f /dev/null
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
 
